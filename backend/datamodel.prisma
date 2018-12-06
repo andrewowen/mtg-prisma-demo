@@ -1,0 +1,21 @@
+type Player {
+  id: ID! @unique
+  alias: String! @unique
+  decks: [Deck!]! @relation(name: "DecksByUser", onDelete: CASCADE)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Deck {
+  id: ID! @unique
+  alias: String!
+  description: String
+  commander: String!
+  player: Player! @relation(name: "DecksByUser")
+  active: Boolean!
+  games: Int!
+  wins: Int!
+  winPercentage: Float!
+  elo: Float!
+  eloDelta: Float!
+}

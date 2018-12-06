@@ -1,0 +1,1144 @@
+# source: https://us1.prisma.sh/andrew-owen-7ef9df/mtg-prisma-demo/dev
+# timestamp: Mon Nov 19 2018 16:21:10 GMT-0500 (Eastern Standard Time)
+
+type AggregateDeck {
+  count: Int!
+}
+
+type AggregatePlayer {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+scalar DateTime
+
+type Deck implements Node {
+  id: ID!
+  alias: String!
+  description: String
+  commander: String!
+  player: Player!
+  active: Boolean!
+  games: Int!
+  wins: Int!
+  winPercentage: Float!
+  elo: Float!
+  eloDelta: Float!
+}
+
+"""A connection to a list of items."""
+type DeckConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [DeckEdge]!
+  aggregate: AggregateDeck!
+}
+
+input DeckCreateInput {
+  alias: String!
+  description: String
+  commander: String!
+  active: Boolean!
+  games: Int!
+  wins: Int!
+  winPercentage: Float!
+  elo: Float!
+  eloDelta: Float!
+  player: PlayerCreateOneWithoutDecksInput!
+}
+
+input DeckCreateManyWithoutPlayerInput {
+  create: [DeckCreateWithoutPlayerInput!]
+  connect: [DeckWhereUniqueInput!]
+}
+
+input DeckCreateWithoutPlayerInput {
+  alias: String!
+  description: String
+  commander: String!
+  active: Boolean!
+  games: Int!
+  wins: Int!
+  winPercentage: Float!
+  elo: Float!
+  eloDelta: Float!
+}
+
+"""An edge in a connection."""
+type DeckEdge {
+  """The item at the end of the edge."""
+  node: Deck!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum DeckOrderByInput {
+  id_ASC
+  id_DESC
+  alias_ASC
+  alias_DESC
+  description_ASC
+  description_DESC
+  commander_ASC
+  commander_DESC
+  active_ASC
+  active_DESC
+  games_ASC
+  games_DESC
+  wins_ASC
+  wins_DESC
+  winPercentage_ASC
+  winPercentage_DESC
+  elo_ASC
+  elo_DESC
+  eloDelta_ASC
+  eloDelta_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type DeckPreviousValues {
+  id: ID!
+  alias: String!
+  description: String
+  commander: String!
+  active: Boolean!
+  games: Int!
+  wins: Int!
+  winPercentage: Float!
+  elo: Float!
+  eloDelta: Float!
+}
+
+input DeckScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DeckScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DeckScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DeckScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  alias: String
+
+  """All values that are not equal to given value."""
+  alias_not: String
+
+  """All values that are contained in given list."""
+  alias_in: [String!]
+
+  """All values that are not contained in given list."""
+  alias_not_in: [String!]
+
+  """All values less than the given value."""
+  alias_lt: String
+
+  """All values less than or equal the given value."""
+  alias_lte: String
+
+  """All values greater than the given value."""
+  alias_gt: String
+
+  """All values greater than or equal the given value."""
+  alias_gte: String
+
+  """All values containing the given string."""
+  alias_contains: String
+
+  """All values not containing the given string."""
+  alias_not_contains: String
+
+  """All values starting with the given string."""
+  alias_starts_with: String
+
+  """All values not starting with the given string."""
+  alias_not_starts_with: String
+
+  """All values ending with the given string."""
+  alias_ends_with: String
+
+  """All values not ending with the given string."""
+  alias_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  commander: String
+
+  """All values that are not equal to given value."""
+  commander_not: String
+
+  """All values that are contained in given list."""
+  commander_in: [String!]
+
+  """All values that are not contained in given list."""
+  commander_not_in: [String!]
+
+  """All values less than the given value."""
+  commander_lt: String
+
+  """All values less than or equal the given value."""
+  commander_lte: String
+
+  """All values greater than the given value."""
+  commander_gt: String
+
+  """All values greater than or equal the given value."""
+  commander_gte: String
+
+  """All values containing the given string."""
+  commander_contains: String
+
+  """All values not containing the given string."""
+  commander_not_contains: String
+
+  """All values starting with the given string."""
+  commander_starts_with: String
+
+  """All values not starting with the given string."""
+  commander_not_starts_with: String
+
+  """All values ending with the given string."""
+  commander_ends_with: String
+
+  """All values not ending with the given string."""
+  commander_not_ends_with: String
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
+  games: Int
+
+  """All values that are not equal to given value."""
+  games_not: Int
+
+  """All values that are contained in given list."""
+  games_in: [Int!]
+
+  """All values that are not contained in given list."""
+  games_not_in: [Int!]
+
+  """All values less than the given value."""
+  games_lt: Int
+
+  """All values less than or equal the given value."""
+  games_lte: Int
+
+  """All values greater than the given value."""
+  games_gt: Int
+
+  """All values greater than or equal the given value."""
+  games_gte: Int
+  wins: Int
+
+  """All values that are not equal to given value."""
+  wins_not: Int
+
+  """All values that are contained in given list."""
+  wins_in: [Int!]
+
+  """All values that are not contained in given list."""
+  wins_not_in: [Int!]
+
+  """All values less than the given value."""
+  wins_lt: Int
+
+  """All values less than or equal the given value."""
+  wins_lte: Int
+
+  """All values greater than the given value."""
+  wins_gt: Int
+
+  """All values greater than or equal the given value."""
+  wins_gte: Int
+  winPercentage: Float
+
+  """All values that are not equal to given value."""
+  winPercentage_not: Float
+
+  """All values that are contained in given list."""
+  winPercentage_in: [Float!]
+
+  """All values that are not contained in given list."""
+  winPercentage_not_in: [Float!]
+
+  """All values less than the given value."""
+  winPercentage_lt: Float
+
+  """All values less than or equal the given value."""
+  winPercentage_lte: Float
+
+  """All values greater than the given value."""
+  winPercentage_gt: Float
+
+  """All values greater than or equal the given value."""
+  winPercentage_gte: Float
+  elo: Float
+
+  """All values that are not equal to given value."""
+  elo_not: Float
+
+  """All values that are contained in given list."""
+  elo_in: [Float!]
+
+  """All values that are not contained in given list."""
+  elo_not_in: [Float!]
+
+  """All values less than the given value."""
+  elo_lt: Float
+
+  """All values less than or equal the given value."""
+  elo_lte: Float
+
+  """All values greater than the given value."""
+  elo_gt: Float
+
+  """All values greater than or equal the given value."""
+  elo_gte: Float
+  eloDelta: Float
+
+  """All values that are not equal to given value."""
+  eloDelta_not: Float
+
+  """All values that are contained in given list."""
+  eloDelta_in: [Float!]
+
+  """All values that are not contained in given list."""
+  eloDelta_not_in: [Float!]
+
+  """All values less than the given value."""
+  eloDelta_lt: Float
+
+  """All values less than or equal the given value."""
+  eloDelta_lte: Float
+
+  """All values greater than the given value."""
+  eloDelta_gt: Float
+
+  """All values greater than or equal the given value."""
+  eloDelta_gte: Float
+}
+
+type DeckSubscriptionPayload {
+  mutation: MutationType!
+  node: Deck
+  updatedFields: [String!]
+  previousValues: DeckPreviousValues
+}
+
+input DeckSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DeckSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DeckSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DeckSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DeckWhereInput
+}
+
+input DeckUpdateInput {
+  alias: String
+  description: String
+  commander: String
+  active: Boolean
+  games: Int
+  wins: Int
+  winPercentage: Float
+  elo: Float
+  eloDelta: Float
+  player: PlayerUpdateOneRequiredWithoutDecksInput
+}
+
+input DeckUpdateManyDataInput {
+  alias: String
+  description: String
+  commander: String
+  active: Boolean
+  games: Int
+  wins: Int
+  winPercentage: Float
+  elo: Float
+  eloDelta: Float
+}
+
+input DeckUpdateManyMutationInput {
+  alias: String
+  description: String
+  commander: String
+  active: Boolean
+  games: Int
+  wins: Int
+  winPercentage: Float
+  elo: Float
+  eloDelta: Float
+}
+
+input DeckUpdateManyWithoutPlayerInput {
+  create: [DeckCreateWithoutPlayerInput!]
+  connect: [DeckWhereUniqueInput!]
+  disconnect: [DeckWhereUniqueInput!]
+  delete: [DeckWhereUniqueInput!]
+  update: [DeckUpdateWithWhereUniqueWithoutPlayerInput!]
+  updateMany: [DeckUpdateManyWithWhereNestedInput!]
+  deleteMany: [DeckScalarWhereInput!]
+  upsert: [DeckUpsertWithWhereUniqueWithoutPlayerInput!]
+}
+
+input DeckUpdateManyWithWhereNestedInput {
+  where: DeckScalarWhereInput!
+  data: DeckUpdateManyDataInput!
+}
+
+input DeckUpdateWithoutPlayerDataInput {
+  alias: String
+  description: String
+  commander: String
+  active: Boolean
+  games: Int
+  wins: Int
+  winPercentage: Float
+  elo: Float
+  eloDelta: Float
+}
+
+input DeckUpdateWithWhereUniqueWithoutPlayerInput {
+  where: DeckWhereUniqueInput!
+  data: DeckUpdateWithoutPlayerDataInput!
+}
+
+input DeckUpsertWithWhereUniqueWithoutPlayerInput {
+  where: DeckWhereUniqueInput!
+  update: DeckUpdateWithoutPlayerDataInput!
+  create: DeckCreateWithoutPlayerInput!
+}
+
+input DeckWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DeckWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DeckWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DeckWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  alias: String
+
+  """All values that are not equal to given value."""
+  alias_not: String
+
+  """All values that are contained in given list."""
+  alias_in: [String!]
+
+  """All values that are not contained in given list."""
+  alias_not_in: [String!]
+
+  """All values less than the given value."""
+  alias_lt: String
+
+  """All values less than or equal the given value."""
+  alias_lte: String
+
+  """All values greater than the given value."""
+  alias_gt: String
+
+  """All values greater than or equal the given value."""
+  alias_gte: String
+
+  """All values containing the given string."""
+  alias_contains: String
+
+  """All values not containing the given string."""
+  alias_not_contains: String
+
+  """All values starting with the given string."""
+  alias_starts_with: String
+
+  """All values not starting with the given string."""
+  alias_not_starts_with: String
+
+  """All values ending with the given string."""
+  alias_ends_with: String
+
+  """All values not ending with the given string."""
+  alias_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  commander: String
+
+  """All values that are not equal to given value."""
+  commander_not: String
+
+  """All values that are contained in given list."""
+  commander_in: [String!]
+
+  """All values that are not contained in given list."""
+  commander_not_in: [String!]
+
+  """All values less than the given value."""
+  commander_lt: String
+
+  """All values less than or equal the given value."""
+  commander_lte: String
+
+  """All values greater than the given value."""
+  commander_gt: String
+
+  """All values greater than or equal the given value."""
+  commander_gte: String
+
+  """All values containing the given string."""
+  commander_contains: String
+
+  """All values not containing the given string."""
+  commander_not_contains: String
+
+  """All values starting with the given string."""
+  commander_starts_with: String
+
+  """All values not starting with the given string."""
+  commander_not_starts_with: String
+
+  """All values ending with the given string."""
+  commander_ends_with: String
+
+  """All values not ending with the given string."""
+  commander_not_ends_with: String
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
+  games: Int
+
+  """All values that are not equal to given value."""
+  games_not: Int
+
+  """All values that are contained in given list."""
+  games_in: [Int!]
+
+  """All values that are not contained in given list."""
+  games_not_in: [Int!]
+
+  """All values less than the given value."""
+  games_lt: Int
+
+  """All values less than or equal the given value."""
+  games_lte: Int
+
+  """All values greater than the given value."""
+  games_gt: Int
+
+  """All values greater than or equal the given value."""
+  games_gte: Int
+  wins: Int
+
+  """All values that are not equal to given value."""
+  wins_not: Int
+
+  """All values that are contained in given list."""
+  wins_in: [Int!]
+
+  """All values that are not contained in given list."""
+  wins_not_in: [Int!]
+
+  """All values less than the given value."""
+  wins_lt: Int
+
+  """All values less than or equal the given value."""
+  wins_lte: Int
+
+  """All values greater than the given value."""
+  wins_gt: Int
+
+  """All values greater than or equal the given value."""
+  wins_gte: Int
+  winPercentage: Float
+
+  """All values that are not equal to given value."""
+  winPercentage_not: Float
+
+  """All values that are contained in given list."""
+  winPercentage_in: [Float!]
+
+  """All values that are not contained in given list."""
+  winPercentage_not_in: [Float!]
+
+  """All values less than the given value."""
+  winPercentage_lt: Float
+
+  """All values less than or equal the given value."""
+  winPercentage_lte: Float
+
+  """All values greater than the given value."""
+  winPercentage_gt: Float
+
+  """All values greater than or equal the given value."""
+  winPercentage_gte: Float
+  elo: Float
+
+  """All values that are not equal to given value."""
+  elo_not: Float
+
+  """All values that are contained in given list."""
+  elo_in: [Float!]
+
+  """All values that are not contained in given list."""
+  elo_not_in: [Float!]
+
+  """All values less than the given value."""
+  elo_lt: Float
+
+  """All values less than or equal the given value."""
+  elo_lte: Float
+
+  """All values greater than the given value."""
+  elo_gt: Float
+
+  """All values greater than or equal the given value."""
+  elo_gte: Float
+  eloDelta: Float
+
+  """All values that are not equal to given value."""
+  eloDelta_not: Float
+
+  """All values that are contained in given list."""
+  eloDelta_in: [Float!]
+
+  """All values that are not contained in given list."""
+  eloDelta_not_in: [Float!]
+
+  """All values less than the given value."""
+  eloDelta_lt: Float
+
+  """All values less than or equal the given value."""
+  eloDelta_lte: Float
+
+  """All values greater than the given value."""
+  eloDelta_gt: Float
+
+  """All values greater than or equal the given value."""
+  eloDelta_gte: Float
+  player: PlayerWhereInput
+}
+
+input DeckWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createPlayer(data: PlayerCreateInput!): Player!
+  createDeck(data: DeckCreateInput!): Deck!
+  updatePlayer(data: PlayerUpdateInput!, where: PlayerWhereUniqueInput!): Player
+  updateDeck(data: DeckUpdateInput!, where: DeckWhereUniqueInput!): Deck
+  deletePlayer(where: PlayerWhereUniqueInput!): Player
+  deleteDeck(where: DeckWhereUniqueInput!): Deck
+  upsertPlayer(where: PlayerWhereUniqueInput!, create: PlayerCreateInput!, update: PlayerUpdateInput!): Player!
+  upsertDeck(where: DeckWhereUniqueInput!, create: DeckCreateInput!, update: DeckUpdateInput!): Deck!
+  updateManyPlayers(data: PlayerUpdateManyMutationInput!, where: PlayerWhereInput): BatchPayload!
+  updateManyDecks(data: DeckUpdateManyMutationInput!, where: DeckWhereInput): BatchPayload!
+  deleteManyPlayers(where: PlayerWhereInput): BatchPayload!
+  deleteManyDecks(where: DeckWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Player implements Node {
+  id: ID!
+  alias: String!
+  decks(where: DeckWhereInput, orderBy: DeckOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Deck!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type PlayerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PlayerEdge]!
+  aggregate: AggregatePlayer!
+}
+
+input PlayerCreateInput {
+  alias: String!
+  decks: DeckCreateManyWithoutPlayerInput
+}
+
+input PlayerCreateOneWithoutDecksInput {
+  create: PlayerCreateWithoutDecksInput
+  connect: PlayerWhereUniqueInput
+}
+
+input PlayerCreateWithoutDecksInput {
+  alias: String!
+}
+
+"""An edge in a connection."""
+type PlayerEdge {
+  """The item at the end of the edge."""
+  node: Player!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PlayerOrderByInput {
+  id_ASC
+  id_DESC
+  alias_ASC
+  alias_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type PlayerPreviousValues {
+  id: ID!
+  alias: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PlayerSubscriptionPayload {
+  mutation: MutationType!
+  node: Player
+  updatedFields: [String!]
+  previousValues: PlayerPreviousValues
+}
+
+input PlayerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlayerSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlayerSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlayerSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PlayerWhereInput
+}
+
+input PlayerUpdateInput {
+  alias: String
+  decks: DeckUpdateManyWithoutPlayerInput
+}
+
+input PlayerUpdateManyMutationInput {
+  alias: String
+}
+
+input PlayerUpdateOneRequiredWithoutDecksInput {
+  create: PlayerCreateWithoutDecksInput
+  connect: PlayerWhereUniqueInput
+  update: PlayerUpdateWithoutDecksDataInput
+  upsert: PlayerUpsertWithoutDecksInput
+}
+
+input PlayerUpdateWithoutDecksDataInput {
+  alias: String
+}
+
+input PlayerUpsertWithoutDecksInput {
+  update: PlayerUpdateWithoutDecksDataInput!
+  create: PlayerCreateWithoutDecksInput!
+}
+
+input PlayerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlayerWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlayerWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlayerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  alias: String
+
+  """All values that are not equal to given value."""
+  alias_not: String
+
+  """All values that are contained in given list."""
+  alias_in: [String!]
+
+  """All values that are not contained in given list."""
+  alias_not_in: [String!]
+
+  """All values less than the given value."""
+  alias_lt: String
+
+  """All values less than or equal the given value."""
+  alias_lte: String
+
+  """All values greater than the given value."""
+  alias_gt: String
+
+  """All values greater than or equal the given value."""
+  alias_gte: String
+
+  """All values containing the given string."""
+  alias_contains: String
+
+  """All values not containing the given string."""
+  alias_not_contains: String
+
+  """All values starting with the given string."""
+  alias_starts_with: String
+
+  """All values not starting with the given string."""
+  alias_not_starts_with: String
+
+  """All values ending with the given string."""
+  alias_ends_with: String
+
+  """All values not ending with the given string."""
+  alias_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  decks_every: DeckWhereInput
+  decks_some: DeckWhereInput
+  decks_none: DeckWhereInput
+}
+
+input PlayerWhereUniqueInput {
+  id: ID
+  alias: String
+}
+
+type Query {
+  players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player]!
+  decks(where: DeckWhereInput, orderBy: DeckOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Deck]!
+  player(where: PlayerWhereUniqueInput!): Player
+  deck(where: DeckWhereUniqueInput!): Deck
+  playersConnection(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlayerConnection!
+  decksConnection(where: DeckWhereInput, orderBy: DeckOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DeckConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  player(where: PlayerSubscriptionWhereInput): PlayerSubscriptionPayload
+  deck(where: DeckSubscriptionWhereInput): DeckSubscriptionPayload
+}
